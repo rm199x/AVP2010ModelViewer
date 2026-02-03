@@ -60,7 +60,7 @@ DWORD g_loaded_anim_count = 0;
 // Connection betwen this two didnt found yet. So basicaly you must specify
 // model and anim by hands. 
 model_incremental_info g_mmi[1000] = { 0 }; // global model information
-anim_incremental_info g_anm[2000] = { 0 }; // global animation information.
+anim_incremental_info g_anm[50000] = { 0 }; // global animation information.
 
 // Animation matrixes that will be passed to shader
 XMMATRIX g_axBoneMatrices[128];
@@ -683,7 +683,7 @@ DWORD Command_dump_anim(DWORD* args)
 
 int Read_HANM(const wchar_t* file_name)
 {
-	if (g_loaded_anim_count >= 2000)
+	if (g_loaded_anim_count >= 50000)
 		return 0;
 
 

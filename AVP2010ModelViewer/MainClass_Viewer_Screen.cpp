@@ -24,7 +24,7 @@ extern hash_tree_node2* model_skeletons;
 extern hash_tree_node2* model_skeleton_anims;
 extern hash_tree_node2* model_HMPTs;
 extern model_incremental_info g_mmi[1000];
-extern anim_incremental_info g_anm[2000];
+extern anim_incremental_info g_anm[50000];
 extern XMMATRIX g_axBoneMatrices[128];
 extern DWORD g_loaded_anim_count;
 extern DWORD g_loaded_mdl_count;
@@ -123,7 +123,7 @@ model_info*				g_default_model;
 wchar_t* g_cwd;
 wchar_t* g_path1 = nullptr; // path for [Models]
 char* g_model_names[1000] = { 0 }; // this for dialog box
-char* g_anim_names[2000] = { 0 };
+char* g_anim_names[50000] = { 0 };
 
 DWORD g_selected_model_index = 0;
 DWORD g_selected_anim_index = 0;
