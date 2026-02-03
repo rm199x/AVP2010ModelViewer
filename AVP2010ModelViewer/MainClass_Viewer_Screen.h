@@ -16,7 +16,7 @@
 #include "umHalf.h"
 
 using namespace DirectX;
-#pragma comment(lib, "HACKS.lib")
+#pragma comment(lib, "d3dcompiler.lib")
 #pragma warning(disable : 4996)
 
 //Macro
