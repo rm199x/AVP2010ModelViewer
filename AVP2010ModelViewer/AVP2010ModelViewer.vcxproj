@@ -169,6 +169,7 @@
     <ClInclude Include="Hash_tree.h" />
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="MainClass_Viewer_Screen.h" />
+    <ClInclude Include="Model_Exporter_gltf.h" />
     <ClInclude Include="Models.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
@@ -186,6 +187,7 @@
     <ClCompile Include="Hash_tree.cpp" />
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="MainClass_Viewer_Screen.cpp" />
+    <ClCompile Include="Model_Exporter_gltf.cpp" />
     <ClCompile Include="Models.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
