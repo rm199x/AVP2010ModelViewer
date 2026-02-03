@@ -50,13 +50,13 @@ struct model_vtx
 	float TexCoord2;
 };
 
-typedef struct
+struct avp_texture
 {
 	DWORD id = 0;
 	DWORD hash = 0;
 	ID3D11ShaderResourceView* pSRView = nullptr;
 	wchar_t* path = nullptr;
-} avp_texture;
+};
 
 struct Material
 {
