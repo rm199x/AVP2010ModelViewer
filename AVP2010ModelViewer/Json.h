@@ -5,8 +5,10 @@
 //---------------------------------------------------------------------------//
 #pragma once
 #include "MainClass_Viewer_Screen.h"
+#include <cstdint>
 // JSON parser
-static_assert(sizeof(float) == sizeof(void *), "sizeof(float) != sizeof(void *) type casting wont work here!");
+// Note: Original code assumed 32-bit (sizeof(float) == sizeof(void*))
+// Fixed to work on 64-bit by using proper type casting
 
 enum json_token_type
 {
@@ -69,7 +71,7 @@ struct json_token
 	}
 	bool get_bool()
 	{
-		return (unsigned int)(this->pData) == 0 ? 0 : 1;
+		return reinterpret_cast<uintptr_t>(this->pData) != 0;
 	}
 	float get_float()
 	{
@@ -77,24 +79,25 @@ struct json_token
 	}
 	int get_int()
 	{
-		return (int)(this->pData);
+		return static_cast<int>(reinterpret_cast<intptr_t>(this->pData));
 	}
 
 
 	// also used for ID extraction
 	unsigned int get_count()
 	{
-		return (unsigned int)(this->pData);
+		return static_cast<unsigned int>(reinterpret_cast<uintptr_t>(this->pData));
 	}
 
 	void set_str(char* str) { this->pData = str; }
-	void set_bool(bool b) { this->pData = (void*)b; }
-	void set_int(int i) { this->pData = (void*)i; };
+	void set_bool(bool b) { this->pData = reinterpret_cast<void*>(static_cast<uintptr_t>(b)); }
+	void set_int(int i) { this->pData = reinterpret_cast<void*>(static_cast<intptr_t>(i)); };
 	void set_float(float f) {
-		DWORD dw = *reinterpret_cast<DWORD const*>(&f);
-		(this->pData) = (void*)dw;
-	} // castmare
-	void set_count(UINT ui) { this->pData = (void*)ui; }
+		uintptr_t val = 0;
+		memcpy(&val, &f, sizeof(f));
+		this->pData = reinterpret_cast<void*>(val);
+	}
+	void set_count(UINT ui) { this->pData = reinterpret_cast<void*>(static_cast<uintptr_t>(ui)); }
 
 	// this is made for simplicity mostly analogues of 
 	// get_field(json_token* from, const char* str);
