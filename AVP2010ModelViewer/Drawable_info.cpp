@@ -10,7 +10,7 @@ extern ID3D11DeviceContext*    g_pImmediateContext;
 extern std::vector <bbox>		g_bboxes;
 extern DWORD g_loaded_mdl_count;
 //const int max_models = 1000;
-extern model_incremental_info g_mmi[1000];
+extern std::vector<model_incremental_info> g_mmi;
 extern XMMATRIX g_axBoneMatrices[128];
 
 

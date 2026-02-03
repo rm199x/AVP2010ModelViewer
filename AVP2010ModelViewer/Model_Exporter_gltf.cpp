@@ -167,8 +167,8 @@ struct gltf_accessor_desc {
 	gltf_component_type component_type;
 };
 
-extern model_incremental_info g_mmi[1000];
-extern anim_incremental_info g_anm[2000];
+extern std::vector<model_incremental_info> g_mmi;
+extern std::vector<anim_incremental_info> g_anm;
 extern DWORD g_loaded_anim_count;
 extern DWORD g_selected_anim_index;
 extern avp_texture AVP_TEXTURES[1500];

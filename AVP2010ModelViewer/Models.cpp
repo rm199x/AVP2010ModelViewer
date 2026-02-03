@@ -58,9 +58,9 @@ DWORD g_loaded_mdl_count = 0;
 DWORD g_loaded_anim_count = 0;
 
 // Connection betwen this two didnt found yet. So basicaly you must specify
-// model and anim by hands. 
-model_incremental_info g_mmi[1000] = { 0 }; // global model information
-anim_incremental_info g_anm[2000] = { 0 }; // global animation information.
+// model and anim by hands.
+std::vector<model_incremental_info> g_mmi; // global model information (no limit)
+std::vector<anim_incremental_info> g_anm;  // global animation information (no limit)
 
 // Animation matrixes that will be passed to shader
 XMMATRIX g_axBoneMatrices[128];
@@ -130,8 +130,6 @@ int read_padded_str(HANDLE file, char* dest)
 
 void Read_model(const wchar_t* model_name, int skip)
 {
-	if (g_loaded_mdl_count >= 1500)
-		return;
 
 	wchar_t file_path[MAX_PATH] = { 0 };
 	if (!skip)
@@ -298,8 +296,10 @@ void Read_model(const wchar_t* model_name, int skip)
 		add_hash2(model_hashs, h_n);
 
 		// load info in array
-		g_mmi[g_loaded_mdl_count].model_name = name_str;
-		g_mmi[g_loaded_mdl_count].mi = mdl_info;
+		model_incremental_info mmi_entry = { 0 };
+		mmi_entry.model_name = name_str;
+		mmi_entry.mi = mdl_info;
+		g_mmi.push_back(mmi_entry);
 		g_loaded_mdl_count++;
 	}
 
@@ -683,10 +683,6 @@ DWORD Command_dump_anim(DWORD* args)
 
 int Read_HANM(const wchar_t* file_name)
 {
-	if (g_loaded_anim_count >= 2000)
-		return 0;
-
-
 	wchar_t file_path[MAX_PATH] = { 0 };
 	wsprintf(file_path, L"%ws\\HANM_chunk\\", g_path1);
 	lstrcat(file_path, file_name);
@@ -849,22 +845,22 @@ int Read_HANM(const wchar_t* file_name)
 	h_n->ptr = skl_anim;
 	add_hash2(model_skeleton_anims, h_n);
 
-	g_anm[g_loaded_anim_count].anim = skl_anim;
-	g_anm[g_loaded_anim_count].anim_name = anim_name;
-	g_anm[g_loaded_anim_count].bones_count = amount_bones;
-	g_anm[g_loaded_anim_count].current_anim_time = 0.0f;
-	g_anm[g_loaded_anim_count].total_time = total_time;
-
 	int max_frames = 0;
-
 	for (int i = 0; i < skl_anim->amount_bones; i++)
 	{
 		if (max_frames < skl_anim->bone_anims[i].frames)
 			max_frames = skl_anim->bone_anims[i].frames;
 	}
 
-	g_anm[g_loaded_anim_count].total_frames = max_frames;
-	g_anm[g_loaded_anim_count].current_frame = 0;
+	anim_incremental_info anm_entry = { 0 };
+	anm_entry.anim = skl_anim;
+	anm_entry.anim_name = anim_name;
+	anm_entry.bones_count = amount_bones;
+	anm_entry.current_anim_time = 0.0f;
+	anm_entry.total_time = total_time;
+	anm_entry.total_frames = max_frames;
+	anm_entry.current_frame = 0;
+	g_anm.push_back(anm_entry);
 
 	//Dump_anim(skl_anim);
 
