@@ -167,6 +167,7 @@
     <ClInclude Include="Debug.h" />
     <ClInclude Include="Drawable_info.h" />
     <ClInclude Include="Hash_tree.h" />
+    <ClInclude Include="Json.h" />
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="MainClass_Viewer_Screen.h" />
     <ClInclude Include="Model_Exporter_gltf.h" />
@@ -185,6 +186,7 @@
     <ClCompile Include="Debug.cpp" />
     <ClCompile Include="Drawable_info.cpp" />
     <ClCompile Include="Hash_tree.cpp" />
+    <ClCompile Include="Json.cpp" />
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="MainClass_Viewer_Screen.cpp" />
     <ClCompile Include="Model_Exporter_gltf.cpp" />
